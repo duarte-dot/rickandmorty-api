@@ -8,6 +8,27 @@
 {% endblock %} {% block content %}
 
 <a href="/">🔙 Voltar para a tela inicial</a>
-<h1>Login</h1>
+<div class="container">
+  <h1>Login</h1>
+
+  <form action="{{ url_for('main.login') }}" method="post">
+    <div class="form-group">
+      <label for="username">Nome de Usuário:</label>
+      <input type="text" id="username" name="username" required />
+    </div>
+
+    <div class="form-group">
+      <label for="password">Senha:</label>
+      <input type="password" id="password" name="password" required />
+    </div>
+
+    <button type="submit">Entrar</button>
+  </form>
+
+  <p>
+    Não tem uma conta?
+    <a href="{{ url_for('main.register') }}">Registre-se aqui</a>
+  </p>
+</div>
 
 {% endblock %}

@@ -1,11 +1,19 @@
-{% extends "base.html" %} {% block title %}Página Inicial{% endblock %} {% block
-content %}
+{% extends "base.html" %} {% block title %}Página Inicial{% endblock %} 
+
+{% block styles %}
+<style>
+  a {
+  color: #d9534f;
+  text-decoration: none;
+  }
+</style>
+{% endblock %} {% block content %}
 
 <h1>Visualização de personagens da série Rick and Morty</h1>
 
 <p>
-  Para iniciar, faça seu <a href="/login">login</a> ou
-  <a href="/register">cadastre-se</a>
+  Para iniciar, faça seu <a href={{ url_for('main.login') }}>login</a> ou
+  <a href={{ url_for('main.register') }}>cadastre-se</a>
 </p>
 
 {% endblock %}
