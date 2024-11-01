@@ -1,4 +1,4 @@
-# Como rodar o projeto:
+# How to run the project:
 - Make sure Python is installed. Download it here: https://www.python.org/downloads/;
 - Clone the project from GitHub: https://github.com/duarte-dot/rickandmorty-api;
 - Optionally, you can rename the env_example file to .env and change the SECRET_KEY value, but it will work without this, as there is a default value in config.py;
