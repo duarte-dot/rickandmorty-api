@@ -15,9 +15,73 @@ block styles %}
     <button type="submit">Deslogar</button>
   </form>
 
+  <button id="load-characters">Carregar Personagens</button>
+  <div id="characters-container"></div>
+
+  <div id="pagination-controls" style="display: none">
+    <button id="prev-page" disabled>Anterior</button>
+    <button id="next-page">Próximo</button>
+  </div>
+
   {% else %}
   <p>Você não está logado.</p>
   <a href="{{ url_for('main.login') }}">Faça login aqui</a>
   {% endif %}
 </div>
+
+<script>
+  let currentPage = 1;
+
+  function loadCharacters(page) {
+    fetch(`/characters?page=${page}`)
+      .then((response) => response.json())
+      .then((data) => {
+        const container = document.getElementById("characters-container");
+        container.innerHTML = "";
+
+        data.forEach((character) => {
+          const card = document.createElement("div");
+          card.classList.add("card");
+          card.innerHTML = `
+            <h2>${character.name}</h2>
+            <p>Status: ${character.status}</p>
+            <p>Espécie: ${character.species}</p>
+            <p>Gênero: ${character.gender}</p>
+            <p>Tipo: ${character.type}</p>
+            <p>Origem: ${character.origin}</p>
+            <p>Localização: ${character.location}</p>
+            <img src="${character.image}" alt="${character.name}">
+            <p>Número de Episódios: ${character.episode_count}</p>
+            <p>Criado em: ${character.created.substring(0, 10)}</p>
+            <a href="${character.url}">Mais Informações</a>
+          `;
+
+          container.appendChild(card);
+        });
+
+        document.getElementById("pagination-controls").style.display = "block";
+        document.getElementById("prev-page").disabled = page === 1;
+        document.getElementById("next-page").disabled = page >= 42;
+      })
+      .catch((error) => console.error("Error:", error));
+  }
+
+  document
+    .getElementById("load-characters")
+    .addEventListener("click", function () {
+      loadCharacters(currentPage);
+    });
+
+  document.getElementById("prev-page").addEventListener("click", function () {
+    if (currentPage > 1) {
+      currentPage--;
+      loadCharacters(currentPage);
+    }
+  });
+
+  document.getElementById("next-page").addEventListener("click", function () {
+    currentPage++;
+    loadCharacters(currentPage);
+  });
+</script>
 {% endblock %}
