@@ -1,4 +1,5 @@
-{% extends "base.html" %} {% block title %}Login{% endblock %} {%block styles%}
+{% extends "base.html" %} {% block title %}Registrar-se{% endblock %} {%block
+styles%}
 
 <link
   rel="stylesheet"
@@ -45,4 +46,8 @@
   </p>
 </div>
 
-{% endblock %}
+{% if error %}
+<script>
+  alert("{{ error }}");
+</script>
+{% endif %} {% endblock %}

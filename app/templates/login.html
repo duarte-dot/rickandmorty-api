@@ -31,4 +31,8 @@
   </p>
 </div>
 
-{% endblock %}
+{% if error %}
+<script>
+  alert("{{ error }}");
+</script>
+{% endif %} {% endblock %}
