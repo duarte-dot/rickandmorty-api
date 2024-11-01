@@ -9,6 +9,10 @@ main_bp = Blueprint(
 
 @main_bp.route('/')
 def index():
+
+    if session.get('user_id'):
+        return redirect(url_for('main.home'))
+    
     return render_template('index.html')
 
 
@@ -40,6 +44,9 @@ def register():
         db.session.commit()
 
         return redirect(url_for('main.login'))
+    
+    if session.get('user_id'):
+        return redirect(url_for('main.home'))
 
     return render_template('register.html')
 
@@ -56,6 +63,9 @@ def login():
             return redirect(url_for('main.home'))
         else:
             return render_template('login.html', error='Usuário ou senha inválidos!')
+
+    if session.get('user_id'):
+        return redirect(url_for('main.home'))
 
     return render_template('login.html')
 
